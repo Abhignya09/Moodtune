@@ -97,7 +97,7 @@ import Navbar from "./Navbar";
 import UserGreeting from "./UserGreeting";
 // import AnalyticsPreview from "./AnalyticsPreview";
 import StartMusicExperienceButton from "./StartMusicExperienceButton";
-
+import API_CONFIG from "../config/api";
 export default function Dashboard({ user, onLogout, spotifyTokens }) {
   const [spotifyUser, setSpotifyUser] = useState(null);
   const [showMusicPlayer, setShowMusicPlayer] = useState(false);
@@ -109,7 +109,7 @@ export default function Dashboard({ user, onLogout, spotifyTokens }) {
     async function fetchSpotifyProfile(token) {
       if (!token) return;
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/spotify/me", {
+        const response = await fetch(`${API_CONFIG.serverUrl}/api/spotify/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

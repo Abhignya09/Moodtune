@@ -431,6 +431,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
+import API_CONFIG from "../config/api";
 
 export default function AuthCard({ onAuth }) {
   const [activeTab, setActiveTab] = useState("login");
@@ -462,7 +463,7 @@ export default function AuthCard({ onAuth }) {
 
         // Save to backend
         const res = await axios.post(
-          "http://localhost:5000/api/users",
+          "${API_CONFIG.serverUrl}/api/users",
           newUser
         );
         onAuth(res.data);
@@ -485,12 +486,12 @@ export default function AuthCard({ onAuth }) {
 
         // Fetch from backend
         const res = await axios.get(
-          `http://localhost:5000/api/users/${user.firebaseUID}`
+          `${API_CONFIG.serverUrl}/api/users/${user.firebaseUID}`
         );
 
         if (!res.data) {
           const newRes = await axios.post(
-            "http://localhost:5000/api/users",
+            `${API_CONFIG.serverUrl}/api/users`,
             user
           );
           onAuth(newRes.data);
@@ -509,7 +510,7 @@ export default function AuthCard({ onAuth }) {
     if (providerName === "google") provider = new GoogleAuthProvider();
     if (providerName === "spotify") {
       // ✅ Redirect to backend Spotify login route
-      window.location.href = "http://localhost:5000/api/spotify/login";
+      window.location.href = `${API_CONFIG.serverUrl}/api/spotify/login`;
       return;
     }
 
@@ -526,7 +527,7 @@ export default function AuthCard({ onAuth }) {
         };
 
         const res = await axios.post(
-          "http://localhost:5000/api/users",
+          `${API_CONFIG.serverUrl}/api/users`,
           newUser
         );
         onAuth(res.data);
