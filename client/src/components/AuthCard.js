@@ -463,7 +463,7 @@ export default function AuthCard({ onAuth }) {
 
         // Save to backend
         const res = await axios.post(
-          "${API_CONFIG.serverUrl}/api/users",
+          `${API_CONFIG.serverUrl}/api/users`,
           newUser
         );
         onAuth(res.data);
